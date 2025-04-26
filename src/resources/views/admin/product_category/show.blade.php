@@ -16,18 +16,23 @@
                 <div class="card-header"><div class="card-title">View Product Category</div></div>
                 <!--end::Header-->
                 <!--begin::Form-->
-                <form action="{{route('categories.update', $category->id)}}" method="post">
+                <form action="" method="post">
                     <!--begin::Body-->
                     <div class="card-body">
                         <div class="mb-3">
+                            <label for="name" class="form-label">Product Or Service Type</label>
+                            <input name="name" type="text" class="form-control" id="name" value="{{$productServiceType->name ?? ucfirst($productServiceType->name)}}" readonly>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input name="name" type="text" class="form-control" id="name" value="{{isset($category->name) ? $category->name : ''}}" readonly>
+                            <input name="name" type="text" class="form-control" id="name" value="{{$productServiceCategory->name ?? $productServiceCategory->name }}" readonly>
                         </div>
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea name="description" class="form-control" id="description" rows="5" readonly>
-                                {{isset($category->description) ? $category->description : ''}}
+                                {{$productServiceCategory->description ?? trim($productServiceCategory->description)}}
                             </textarea>
                         </div>
                     </div>
@@ -37,11 +42,5 @@
             </div>
         </div>
         <!--end::Horizontal Form-->
-    </div>
-    <!--end::Col-->
-    </div>
-    <!--end::Form Validation-->
-    </div>
-    <!--end::Col-->
     </div>
 @endsection

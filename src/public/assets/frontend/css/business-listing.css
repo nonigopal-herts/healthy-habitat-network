@@ -1,0 +1,27 @@
+.form-section {
+  max-width: 700px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.upload-box {
+  border: 2px dashed #ccc;
+  padding: 50px;
+  text-align: center;
+  color: #888;
+  border-radius: 10px;
+}
+#uploadImage {
+  border: 2px dashed #ccc;
+  padding: 30px;
+  text-align: center;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+#preview {
+  display: none;
+  max-width: 200px;
+  margin-top: 15px;
+}

@@ -12,7 +12,10 @@
         <div class="col-md-12">
             <div class="card mb-12">
                 <div class="card-header">
-                    <a class="btn btn-outline-primary" href="{{route('areas.create')}}">Add Area</a>
+                    <a class="btn btn-outline-primary mb-3" href="{{route('areas.create')}}">Add Area</a>
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
                 </div>
 
                 <div class="card-header"><h3 class="card-title">Areas</h3></div>
@@ -23,7 +26,7 @@
                             <tr>
                                 <th><strong>#</strong></th>
                                 <th><strong>Name</strong></th>
-                                <th><strong>Description</strong></th>
+                                <th><strong>Email</strong></th>
                                 <th><strong>Action</strong></th>
                             </tr>
                         </thead>
@@ -33,7 +36,7 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{$area->name}}</td>
                                     <td>
-                                        {{$area->description}}
+                                        {{$area->email}}
                                     </td>
                                     <td>
                                         <a class="btn btn-info btn-sm mr-5" href="{{ route('areas.show', $area->id) }}"><i class="bi bi-eye"></i></a>
@@ -41,7 +44,7 @@
                                         <form action="{{ route('areas.destroy', $area->id) }}" method="POST" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-archive-fill"></i></button>
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="bi bi-archive-fill"></i></button>
                                         </form>
                                     </td>
                                 </tr>

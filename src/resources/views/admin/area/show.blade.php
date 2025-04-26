@@ -16,7 +16,7 @@
                 <div class="card-header"><div class="card-title">View Area</div></div>
                 <!--end::Header-->
                     <!--begin::Form-->
-                    <form action="{{route('areas.update', $area->id)}}" method="post">
+                    <form>
                         <!--begin::Body-->
                         <div class="card-body">
                             <div class="mb-3">
@@ -25,10 +25,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea name="description" class="form-control" id="description" rows="5" readonly>
-                                    {{isset($area->description) ? $area->description : ''}}
-                                </textarea>
+                                <label for="email" class="form-label">Email</label>
+                                <input name="email" type="text" class="form-control" id="email" value="{{$area->email ?? $area->email}}" readonly>
                             </div>
                         </div>
                         <!--end::Body-->

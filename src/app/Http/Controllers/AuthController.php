@@ -62,9 +62,15 @@ class AuthController extends Controller
                 'user_id' => Auth::id(),
                 'user_name' => Auth::user()->name,
                 'user_email' => Auth::user()->email,
+                'role_id' => Auth::user()->role_id,
             ]);
 
-            return redirect()->intended('dashboard'); // Change to your desired route
+            if (auth()->user()->role_id == 4) {
+//                dd('Resident');
+                return redirect('home');
+            }else{
+                return redirect('dashboard'); // Change to your desired route
+            }
         }
 
         return back()->withErrors([

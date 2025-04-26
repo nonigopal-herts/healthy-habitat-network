@@ -1,21 +1,49 @@
 <?php
+//Auth Controllers
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
-use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Admin\AreaController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductServiceCategoryController;
+use App\Http\Controllers\Admin\ProductServiceSubcategoryController;
+use App\Http\Controllers\Admin\ProductServiceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordResetController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\AreaController;
+use App\Http\Controllers\Admin\BusinessController;
+use Illuminate\Support\Facades\Route;
 
+//Frontend Controllers
+use App\Http\Controllers\Frontend\HomeController;
+
+
+//Auth::routes();
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    // Registration
+    Route::get('/registration', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/registration', [RegisterController::class, 'register']);
 
-    Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
+    // Login
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login']);
+
+    //End of Registration
+
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/service-subcategory/{id}', [HomeController::class, 'serviceSubcategories'])->name('service-subcategory');
+    Route::get('/product-subcategory/{id}', [HomeController::class, 'productSubcategories'])->name('product-subcategory');
+    Route::get('/services/{id}', [HomeController::class, 'services'])->name('services');
+
+
+
+//    Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+//    Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -34,7 +62,21 @@ Route::middleware('auth')->group(function () {
     // Category Routes
     Route::resource('/categories', CategoryController::class);
     Route::resource('/areas', AreaController::class);
+
+
 });
+
+Route::resource('/productservicecategories', ProductServiceCategoryController::class);
+// Product Subcategories Resource Route
+Route::resource('product-subcategories', ProductServiceSubcategoryController::class)
+    ->parameters(['product-subcategories' => 'productSubcategory'])
+    ->names('product-subcategories');
+
+Route::resource('product-services', ProductServiceController::class)
+    ->parameters(['product-services' => 'productService'])
+    ->names('product-services');
+
+Route::resource('businesses', BusinessController::class);
 
 //Route::prefix('admin')->name('admin.')->group(function () {
 //Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -46,3 +88,5 @@ Route::middleware('auth')->group(function () {
         // Add more admin routes here
     //});
 //});
+
+

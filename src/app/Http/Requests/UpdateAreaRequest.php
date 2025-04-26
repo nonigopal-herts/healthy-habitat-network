@@ -23,7 +23,20 @@ class UpdateAreaRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:categories|string|max:255',
-            'description' => 'nullable|string',
+            'email' => 'required|email|max:255',
+        ];
+    }
+
+    /**
+     * Get custom error messages for validator errors.
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'The email address is required',
+            'email.email' => 'Please enter a valid email address',
+            'email.max' => 'Email address cannot exceed 255 characters',
+            'email.unique' => 'This email address is already in use',
         ];
     }
 }

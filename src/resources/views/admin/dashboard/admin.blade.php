@@ -15,6 +15,7 @@
         <h2>User Information</h2>
         <p><strong>Name:</strong> {{ session('user_name') }}</p>
         <p><strong>ID:</strong> {{ session('user_id') }}</p>
+        <p>Role id: {{Auth::user()->role_id}}</p>
 
         <div class="col-lg-3 col-6">
         <!--begin::Small Box Widget 1-->

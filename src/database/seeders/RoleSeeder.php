@@ -27,8 +27,8 @@ class RoleSeeder extends Seeder
                 'description' => 'Small and medium enterprises (SMEs) of the platform',
             ],
             [
-                'name' => 'consumer',
-                'description' => 'Registered users of the platform',
+                'name' => 'resident',
+                'description' => 'Residents of the platform',
             ],
         ];
 

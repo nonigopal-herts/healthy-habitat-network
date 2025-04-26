@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             //Foreign key to product_service_categories
-            $table->foreignId('product_service_categories_id')
+            $table->foreignId('product_service_category_id')
                 ->constrained('product_service_categories')
                 ->name('fk_cat_id');
             //->onDelete('set null');

@@ -26,8 +26,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea name="description" class="form-control" id="description" rows="5"></textarea>
+                                <label for="email" class="form-label">Email</label>
+                                <input name="email" type="text" class="form-control" id="email">
                             </div>
                         </div>
                         <!--end::Body-->

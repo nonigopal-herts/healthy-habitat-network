@@ -18,14 +18,14 @@ return new class extends Migration
             $table->string('image')->nullable();
 
             //Add product_services_type_id as foreign key from product_services_types table
-            $table->foreignId('product_service_types_id')
-                ->constrained('product_service_types')
-                ->name('fk_prodserv_type');
+//            $table->foreignId('product_service_types_id')
+//                ->constrained('product_service_types')
+//                ->name('fk_prodserv_type');
 
             //Add product_services_category_id as foreign key from product_services_categories table
-            $table->foreignId('product_service_category_id')
-                ->constrained('product_service_categories')
-                ->name('fk_prodserv_cat');
+//            $table->foreignId('product_service_category_id')
+//                ->constrained('product_service_categories')
+//                ->name('fk_prodserv_cat');
 
             //Add product_services_subcategory_id as foreign key from product_services_subcategories table
             $table->foreignId('product_service_subcategory_id')

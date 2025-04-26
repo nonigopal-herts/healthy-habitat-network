@@ -13,13 +13,24 @@
         <!--begin::Quick Example-->
             <div class="card card-primary card-outline mb-4">
                 <!--begin::Header-->
-                <div class="card-header"><div class="card-title">Product Category</div></div>
+                <div class="card-header">
+                    <div class="card-title">Product Category</div>
+                </div>
                 <!--end::Header-->
                 <!--begin::Form-->
-                <form action="{{route('categories.store')}}" method="post">
+                <form action="{{route('productservicecategories.store')}}" method="post">
                     @csrf
                     <!--begin::Body-->
                     <div class="card-body">
+                        <div class="mb-3">
+                            <label for="product-service-types" class="form-label">Product or Service Type</label>
+                            <select name="product_service_type_id" class="form-select" id="product-service-types">
+                                @foreach($productServiceType as $type)
+                                <option value="{{$type->id}}">{{ucfirst($type->name)}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input name="name" type="text" class="form-control" id="name">
@@ -38,19 +49,10 @@
                     <!--end::Footer-->
                 </form>
                 <!--end::Form-->
+                </div>
+                <!--end::Quick Example-->
             </div>
-            <!--end::Quick Example-->
-
-
-            </form>
-            <!--end::Form-->
+            <!--end::Col-->
         </div>
-        <!--end::Horizontal Form-->
-        </div>
-        <!--end::Col-->
-        </div>
-        <!--end::Form Validation-->
-        </div>
-        <!--end::Col-->
     </div>
     @endsection

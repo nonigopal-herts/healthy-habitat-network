@@ -12,7 +12,10 @@
         <div class="col-md-12">
             <div class="card mb-12">
                 <div class="card-header">
-                    <a class="btn btn-outline-primary" href="{{route('categories.create')}}">Add Product Category</a>
+                    <a class="btn btn-outline-primary mb-3" href="{{route('productservicecategories.create')}}">Add Product Category</a>
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
                 </div>
 
                 <div class="card-header"><h3 class="card-title">Bordered Table</h3></div>
@@ -28,7 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($categories as $category)
+                            @forelse ($productServiceCategory as $category)
                                 <tr class="align-middle">
                                     <td>{{ ++$i }}</td>
                                     <td>{{$category->name}}</td>
@@ -36,12 +39,12 @@
                                         {{$category->description}}
                                     </td>
                                     <td>
-                                        <a class="btn btn-info btn-sm mr-5" href="{{ route('categories.show', $category->id) }}"><i class="bi bi-eye"></i></a>
-                                        <a class="btn btn-primary btn-sm mr-5" href="{{ route('categories.edit', $category->id) }}"><i class="bi bi-pencil-square"></i></a>
-                                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline-block;">
+                                        <a class="btn btn-info btn-sm mr-5" href="{{ route('productservicecategories.show', $category->id) }}"><i class="bi bi-eye"></i></a>
+                                        <a class="btn btn-primary btn-sm mr-5" href="{{ route('productservicecategories.edit', $category->id) }}"><i class="bi bi-pencil-square"></i></a>
+                                        <form action="{{ route('productservicecategories.destroy', $category->id) }}" method="POST" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-archive-fill"></i></button>
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="bi bi-archive-fill"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -55,7 +58,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
-                    {!! $categories->links() !!}
+                    {!! $productServiceCategory->links() !!}
                 </div>
             </div>
             <!-- /.card -->

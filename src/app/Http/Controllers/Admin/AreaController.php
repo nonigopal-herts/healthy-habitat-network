@@ -33,6 +33,7 @@ class AreaController extends Controller
      */
     public function store(StoreAreaRequest $request)
     {
+        //dd($request->all());
         Area::create($request->validated());
         return redirect()->route('areas.index')->with('success', 'Area created successfully.');
     }
@@ -57,8 +58,10 @@ class AreaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAreaRequest $request, Area $area)
+    public function update(UpdateAreaRequest $request, $id)
     {
+        $area = Area::findOrFail($id);
+        //dd($area);
         $area->update($request->validated());
         return redirect()->route('areas.index')->with('success', 'Area updated successfully.');
     }
