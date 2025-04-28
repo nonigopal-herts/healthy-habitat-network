@@ -55,6 +55,15 @@
           <!-- /.register-logo -->
           <div class="card">
             <div class="card-body login-card-body">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
               <p class="login-box-msg">Sign in to start your session</p>
               <form action="{{ route('login') }}" method="post">
                 @csrf
@@ -107,11 +116,11 @@
               <!-- /.social-auth-links -->
               <p class="mb-1">
                 {{-- <a href="href="{{ route('password.request') }}">I forgot my password</a> --}}
-                @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                @endif
+{{--                @if (Route::has('password.request'))--}}
+{{--                    <a href="{{ route('password.request') }}">--}}
+{{--                        {{ __('Forgot Your Password?') }}--}}
+{{--                    </a>--}}
+{{--                @endif--}}
               </p>
               <p class="mb-0">
                 <a href="{{route('register')}}" class="text-center"> Register a new membership </a>

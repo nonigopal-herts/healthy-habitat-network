@@ -5,8 +5,9 @@
         <!-- Search and Filter -->
         <div class="card shadow-sm mb-5">
             <div class="card-body">
-                <form class="row g-3">
-                    <!-- Search -->
+                <form class="row g-3" method="GET" action="{{ route('products-services') }}">
+
+                <!-- Search -->
                     <div class="col-md-4">
                         <input type="text" name="search" class="form-control" placeholder="Search..." value="{{ request('search') }}">
                     </div>
@@ -36,19 +37,6 @@
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-primary w-100">Filter</button>
                     </div>
-
-                    <!-- Quick Filters -->
-                    <div class="col-12 mt-3">
-                        <div class="d-flex flex-wrap gap-2">
-                            <div class="btn-group">
-                                @foreach(['affordable' => '< $50', 'moderate' => '$50-$150', 'premium' => '> $150'] as $value => $label)
-                                    <input type="radio" class="btn-check" name="price_tag" id="{{ $value }}"
-                                           value="{{ $value }}" @checked(request('price_tag') == $value)>
-                                    <label class="btn btn-outline-primary" for="{{ $value }}">{{ $label }}</label>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>
@@ -65,54 +53,16 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="text-muted small mb-2">
-                                {{ $product->category->name ?? 'Uncategorized' }}
+                                {{ $product->subcategory->name ?? 'Uncategorized' }}
                             </p>
-                            <div class="mb-2">
-                                @for($i = 1; $i <= 5; $i++)
-                                    <i class="fas fa-star {{ $i <= ($product->average_rating ?? 0) ? 'text-warning' : 'text-muted' }}"></i>
-                                @endfor
-                            </div>
+{{--                            <div class="mb-2">--}}
+{{--                                @for($i = 1; $i <= 5; $i++)--}}
+{{--                                    <i class="fas fa-star {{ $i <= ($product->average_rating ?? 0) ? 'text-warning' : 'text-muted' }}"></i>--}}
+{{--                                @endfor--}}
+{{--                            </div>--}}
                             <h5 class="text-primary">&pound; {{ number_format($product->price, 2) }}</h5>
 
-                            <!-- Voting Section -->
-                            <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-muted">100 total votes</small>
-                                    <small class="text-success">50% positive</small>
-                                </div>
 
-                                @if(Auth::check() && Auth::user()->role_id == 4)
-                                <form action="" method="POST" class="vote-form">
-                                    @csrf
-                                    <div class="btn-group w-100" role="group" style="height: 35px;">
-                                        <button type="submit" name="vote" value="yes" class="btn btn-sm btn-outline-success py-0 px-2">
-                                            <i class="fas fa-thumbs-up fa-xs"></i> {{ $product->yes_votes }}
-                                        </button>
-                                        <button type="submit" name="vote" value="no" class="btn btn-sm btn-outline-danger py-0 px-2">
-                                            <i class="fas fa-thumbs-down fa-xs"></i> {{ $product->no_votes }}
-                                        </button>
-                                    </div>
-                                </form>
-                                @else
-                                    <!-- Display for guests with error message -->
-                                    <div class="guest-voting">
-                                        <div class="btn-group voting-buttons">
-                                            <button class="btn btn-sm btn-outline-secondary require-login" data-vote="yes">
-                                                <i class="fas fa-thumbs-up"></i> {{ $product->yes_votes }}
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-secondary require-login" data-vote="no">
-                                                <i class="fas fa-thumbs-down"></i> {{ $product->no_votes }}
-                                            </button>
-                                        </div>
-                                        <div class="alert alert-warning mt-2 login-prompt" style="display: none;">
-                                            <p>Please login to vote!</p>
-                                            {{--{{ route('resident.login') }}--}}
-                                            <a href="" class="btn btn-sm btn-primary">Login</a>
-                                            <button class="btn btn-sm btn-outline-secondary close-prompt">Close</button>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
                         </div>
                         <div class="card-footer bg-white">
                             <a href="{{route('products-services-details', $product->id)}}" class="btn btn-sm btn-outline-primary w-100">View Details</a>
@@ -128,7 +78,7 @@
 
         <!-- Pagination -->
         <div class="mt-4">
-            {{ $products->links() }}
+            {{ $products->withQueryString()->links() }}
         </div>
     </div>
 

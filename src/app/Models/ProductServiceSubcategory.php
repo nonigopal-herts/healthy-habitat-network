@@ -20,4 +20,5 @@ class ProductServiceSubcategory extends Model
     {
         return $this->belongsTo(ProductServiceCategory::class, 'product_service_category_id');
     }
+
 }

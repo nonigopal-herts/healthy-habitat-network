@@ -36,13 +36,14 @@ class HomeController extends Controller
         return view('frontend.products_services.index', compact('services', 'catDetails'));
     }
 
-    public function productServices($id){
-        // Build product query
-        $categories = ProductServiceCategory::all();
-        $products = ProductService::where('product_service_subcategory_id', $id)->with(['category', 'subcategory'])->paginate(10);
-
-        return view('frontend.products_services.index', compact('products', 'categories'));
-    }
+//    public function productServices($id){
+//        //dd('hello');
+//        // Build product query
+//        $categories = ProductServiceCategory::all();
+//        $products = ProductService::where('product_service_subcategory_id', $id)->with(['category', 'subcategory'])->paginate(10);
+//
+//        return view('frontend.products_services.index', compact('products', 'categories'));
+//    }
 
     public function productsServicesDetails($id){
         $productDetails = ProductService::where('id', $id)->with('priceTag')->first();
@@ -59,4 +60,42 @@ class HomeController extends Controller
         //dd($productDetails);
         return view('frontend.products_services.show', compact('productDetails', 'businessDetails', 'voteCounts'));
     }
+
+
+    public function productServices(Request $request, $id = null)
+    {
+        $query = ProductService::query();
+
+        // Search filter
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%'.$request->search.'%');
+        }
+
+        // ✅ Category filter (This is where you need to add it)
+        if ($request->filled('category')) {
+            $query->whereHas('subcategory', function ($subQuery) use ($request) {
+                $subQuery->where('product_service_category_id', $request->category);
+            });
+        }
+
+        // Price range filter
+        if ($request->filled('min_price')) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->filled('max_price')) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        // Pagination
+        $products = $query->paginate(10)->appends($request->query());
+
+        // Load categories
+        $categories = ProductServiceCategory::all();
+
+        return view('frontend.products_services.index', compact('products', 'categories'));
+    }
+
+
+
 }

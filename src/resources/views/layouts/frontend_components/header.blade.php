@@ -88,19 +88,19 @@
                 {{--                    <a class="nav-link" href="vote.html">Vote</a>--}}
                 {{--                </li>--}}
 
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link" href="{{route('about')}}">About Us</a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link" href="{{route('contact')}}">Contact</a>--}}
+{{--                </li>--}}
 
                 <!-- Login Button -->
 
                 <li class="nav-item dropdown">
                     <a
                         class="nav-link dropdown-toggle"
-                        href="services.html"
+                        href=""
                         id="navbarDropdownMenuLink"
                         role="button"
                         data-bs-toggle="dropdown"
@@ -126,7 +126,7 @@
                         @endif
 
                         <li>
-                            <a class="dropdown-item" href="">Admin Login</a>
+                            <a class="dropdown-item" href="{{route('login')}}">Admin Login</a>
                         </li>
                     </ul>
                 </li>

@@ -160,6 +160,27 @@
                     </ul>
                 </li>
               @endif
+
+                {{--Route for council--}}
+                @if(Auth::check() && Auth::user()->role_id == 2)
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-table"></i>
+                        <p>
+                            Areas
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('areas.index')}}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Areas</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
             </ul>
             <!--end::Sidebar Menu-->
           </nav>
