@@ -20,9 +20,20 @@ use Illuminate\Support\Facades\Route;
 //Frontend Controllers
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductsServicesController;
+use App\Http\Controllers\Frontend\ResidentAuthController;
+
+use App\Http\Controllers\Frontend\ProductServiceVoteController;
 
 
 //Auth::routes();
+// Resident Authentication
+
+Route::prefix('resident')->group(function() {
+    Route::get('/login', [ResidentAuthController::class, 'showLoginForm'])->name('resident.login');
+    Route::post('/login', [ResidentAuthController::class, 'login']);
+    Route::post('/logout', [ResidentAuthController::class, 'logout'])->name('resident.logout');
+});
+
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -42,7 +53,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/services/{id}', [HomeController::class, 'services'])->name('services');
     Route::get('/products-services/{id}', [HomeController::class, 'productServices'])->name('products-services');
     Route::get('/products-services-details/{id}', [HomeController::class, 'productsServicesDetails'])->name('products-services-details');
-
+    Route::post('/products/{product}/vote', [ProductServiceVoteController::class, 'vote'])->name('products.vote');
 
 
 

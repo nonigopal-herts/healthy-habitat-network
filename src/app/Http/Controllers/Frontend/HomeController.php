@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\BusinessProduct;
 use App\Models\ProductService;
 use App\Models\ProductServiceCategory;
 use App\Models\ProductServiceSubcategory;
+use App\Models\ProductServiceVote;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -44,7 +46,17 @@ class HomeController extends Controller
 
     public function productsServicesDetails($id){
         $productDetails = ProductService::where('id', $id)->with('priceTag')->first();
+        $businessDetails = BusinessProduct::where('product_service_id', $productDetails->id)->first();
+
+        $voteCounts = [
+            'yes' => ProductServiceVote::where('product_service_id', $productDetails->id)
+                ->sum('yes_vote'),
+            'no' => ProductServiceVote::where('product_service_id', $productDetails->id)
+                ->sum('no_vote')
+        ];
+
+        //dd($voteCounts);
         //dd($productDetails);
-        return view('frontend.products_services.show', compact('productDetails'));
+        return view('frontend.products_services.show', compact('productDetails', 'businessDetails', 'voteCounts'));
     }
 }

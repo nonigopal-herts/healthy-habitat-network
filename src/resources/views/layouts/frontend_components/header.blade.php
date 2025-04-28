@@ -96,12 +96,39 @@
                 </li>
 
                 <!-- Login Button -->
-                <li class="nav-item">
+
+                <li class="nav-item dropdown">
                     <a
-                        class="nav-link btn btn-outline-light text-white ms-2 px-3 py-1"
-                        href="{{url('/')}}"
-                    >Login</a
+                        class="nav-link dropdown-toggle"
+                        href="services.html"
+                        id="navbarDropdownMenuLink"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
                     >
+                        Login
+                    </a>
+                    <ul
+                        class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink"
+                    >
+                        @if(Session::has('resident_logged_in'))
+                            <div class="d-flex align-items-center gap-2">
+                                <form action="{{ route('resident.logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm">Logout</button>
+                                </form>
+                            </div>
+                        @else
+                        <li>
+                           <a class="dropdown-item" href="{{route('resident.login')}}">Resident Login</a>
+                        </li>
+                        @endif
+
+                        <li>
+                            <a class="dropdown-item" href="">Admin Login</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <!-- Register Button -->

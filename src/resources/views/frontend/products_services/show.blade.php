@@ -3,6 +3,20 @@
 @section('content')
     <div class="container my-5">
         <div class="row">
+            <!-- Success Message -->
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <!-- Error Message -->
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="col-md-6 mb-4 mb-md-0">
                 <img
                     src="{{ $productDetails->image ? asset('storage/'.$productDetails->image) : $productDetails->getImageUrl() }}"
@@ -24,12 +38,41 @@
                 </div>
 
                 <h6 class="fw-bold mt-4">Vote Now</h6>
-                <button class="btn btn-success me-2">
-                    👍 <span id="yes-votes">0</span> Yes
-                </button>
-                <button class="btn btn-danger">
-                    👎 <span id="no-votes">0</span> No
-                </button>
+                @if(Session::has('resident_role_id') && Session::get('resident_role_id')  == 4)
+                    <!-- Voting form for logged-in residents -->
+                    {{--{{ route('products.vote', $product) }}--}}
+                    <form action="{{ route('products.vote', $productDetails->id) }}" method="POST">
+                        @csrf
+                        <div class="btn-group" role="group">
+                            <input type="hidden" name="product_service_id" value="{{$productDetails->id}}">
+                            <input type="hidden" name="business_id" value="{{$businessDetails->id}}">
+                            <input type="hidden" name="user_id" value="{{Session::get('resident_id')}}">
+
+                            <button type="submit" name="vote_type" value="yes" class="btn btn-sm btn-success">
+                            {{ $voteCounts['yes'] }}
+                                <i class="fas fa-thumbs-up"></i>
+                            </button>
+                            <button type="submit" name="vote_type" value="no" class="btn btn-sm btn-danger">
+                                {{ $voteCounts['no'] }}
+                                <i class="fas fa-thumbs-down"></i>
+                            </button>
+                        </div>
+                    </form>
+                @else
+                    <!-- Display for non-residents -->
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-sm btn-outline-success" onclick="showLoginAlert()">
+                            <i class="fas fa-thumbs-up"></i> 10
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="showLoginAlert()">
+                            <i class="fas fa-thumbs-down"></i> 5
+                        </button>
+                    </div>
+                    <div class="alert alert-warning mt-2" id="loginAlert" style="display: none;">
+                        Please login as a resident to vote.
+                        <a href="{{ route('resident.login') }}" class="btn btn-sm btn-primary ms-2">Login</a>
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -49,7 +92,11 @@
 @endsection
 
 @push('scripts')
-
+    <script>
+        function showLoginAlert() {
+            document.getElementById('loginAlert').style.display = 'block';
+        }
+    </script>
 @endpush
 
 <style>
