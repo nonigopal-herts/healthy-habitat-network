@@ -31,7 +31,7 @@ class ProductService extends Model
         'price' => 'decimal:2'
     ];
 
-    public function category(): BelongsTo
+    public function category()
     {
         return $this->belongsTo(
             ProductServiceCategory::class,
@@ -45,7 +45,7 @@ class ProductService extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function subcategory(): BelongsTo
+    public function subcategory()
     {
         return $this->belongsTo(
             ProductServiceSubcategory::class,
@@ -57,5 +57,17 @@ class ProductService extends Model
     public function priceTag()
     {
         return $this->belongsTo(PriceTag::class);
+    }
+
+    public function getImageUrl()
+    {
+        if ($this->image) {
+            return asset($this->image);
+        }
+
+        // Choose one of these options:
+        return 'https://source.unsplash.com/random/300x200/?product';
+        // or
+        //return 'https://placehold.co/300x200/EEE/31343C?font=roboto&text=No+Image';
     }
 }

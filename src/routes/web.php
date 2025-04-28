@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 //Frontend Controllers
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ProductsServicesController;
 
 
 //Auth::routes();
@@ -39,6 +40,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/service-subcategory/{id}', [HomeController::class, 'serviceSubcategories'])->name('service-subcategory');
     Route::get('/product-subcategory/{id}', [HomeController::class, 'productSubcategories'])->name('product-subcategory');
     Route::get('/services/{id}', [HomeController::class, 'services'])->name('services');
+    Route::get('/products-services', [ProductsServicesController::class, 'index'])->name('products-services');
 
 
 
@@ -56,6 +58,7 @@ Route::middleware('guest')->group(function () {
 });
 
 // Protected Routes
+//Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -63,20 +66,21 @@ Route::middleware('auth')->group(function () {
     Route::resource('/categories', CategoryController::class);
     Route::resource('/areas', AreaController::class);
 
+    Route::resource('/productservicecategories', ProductServiceCategoryController::class);
+    // Product Subcategories Resource Route
+    Route::resource('product-subcategories', ProductServiceSubcategoryController::class)
+        ->parameters(['product-subcategories' => 'productSubcategory'])
+        ->names('product-subcategories');
+
+    Route::resource('product-services', ProductServiceController::class)
+        ->parameters(['product-services' => 'productService'])
+        ->names('product-services');
+
+    Route::resource('businesses', BusinessController::class);
 
 });
 
-Route::resource('/productservicecategories', ProductServiceCategoryController::class);
-// Product Subcategories Resource Route
-Route::resource('product-subcategories', ProductServiceSubcategoryController::class)
-    ->parameters(['product-subcategories' => 'productSubcategory'])
-    ->names('product-subcategories');
 
-Route::resource('product-services', ProductServiceController::class)
-    ->parameters(['product-services' => 'productService'])
-    ->names('product-services');
-
-Route::resource('businesses', BusinessController::class);
 
 //Route::prefix('admin')->name('admin.')->group(function () {
 //Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

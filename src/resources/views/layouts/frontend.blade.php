@@ -15,6 +15,7 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/swiper@9.1.0/swiper-bundle.min.css"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{asset('assets/frontend/css/style.css')}}" />
 </head>
