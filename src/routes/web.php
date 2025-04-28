@@ -40,7 +40,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/service-subcategory/{id}', [HomeController::class, 'serviceSubcategories'])->name('service-subcategory');
     Route::get('/product-subcategory/{id}', [HomeController::class, 'productSubcategories'])->name('product-subcategory');
     Route::get('/services/{id}', [HomeController::class, 'services'])->name('services');
-    Route::get('/products-services', [ProductsServicesController::class, 'index'])->name('products-services');
+    Route::get('/products-services/{id}', [HomeController::class, 'productServices'])->name('products-services');
+    Route::get('/products-services-details/{id}', [HomeController::class, 'productsServicesDetails'])->name('products-services-details');
+
 
 
 

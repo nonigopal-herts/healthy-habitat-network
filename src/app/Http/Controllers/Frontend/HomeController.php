@@ -33,4 +33,18 @@ class HomeController extends Controller
         //dd($services, $catDetails);
         return view('frontend.products_services.index', compact('services', 'catDetails'));
     }
+
+    public function productServices($id){
+        // Build product query
+        $categories = ProductServiceCategory::all();
+        $products = ProductService::where('product_service_subcategory_id', $id)->with(['category', 'subcategory'])->paginate(10);
+
+        return view('frontend.products_services.index', compact('products', 'categories'));
+    }
+
+    public function productsServicesDetails($id){
+        $productDetails = ProductService::where('id', $id)->with('priceTag')->first();
+        //dd($productDetails);
+        return view('frontend.products_services.show', compact('productDetails'));
+    }
 }

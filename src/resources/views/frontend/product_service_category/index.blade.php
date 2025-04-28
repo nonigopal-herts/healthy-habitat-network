@@ -15,7 +15,7 @@
                             </p>
                         </div>
                         <p class="text-center">
-                            <a href="{{route('services', $subcat->id)}}" class="btn btn-outline-success">View Products</a>
+                            <a href="{{route('products-services', $subcat->id)}}" class="btn btn-outline-success">View Products</a>
                         </p>
                     </div>
                 </div>

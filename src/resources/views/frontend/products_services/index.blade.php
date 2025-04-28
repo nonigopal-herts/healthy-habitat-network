@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-white">
-                            <a href="#" class="btn btn-sm btn-outline-primary w-100">View Details</a>
+                            <a href="{{route('products-services-details', $product->id)}}" class="btn btn-sm btn-outline-primary w-100">View Details</a>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
 
         <!-- Pagination -->
         <div class="mt-4">
-            {{ $products->withQueryString()->links() }}
+            {{ $products->links() }}
         </div>
     </div>
 
