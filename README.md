@@ -79,3 +79,7 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
   db: mysql
   user: root
   pass: secret
+
+
+
+
